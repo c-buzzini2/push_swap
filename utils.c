@@ -1,16 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_atoi.c                                          :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:36:06 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/01/30 13:26:20 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:53:54 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+size_t	ft_strlen(const char *s)
+{
+	int	i;
+
+	i = 0;
+	while (s[i] != '\0')
+		i++;
+	return (i);
+}
 
 int	ft_atoi(const char *nptr)
 {
@@ -40,3 +50,18 @@ int	ft_atoi(const char *nptr)
 	return (nb * neg);
 }
 
+void	ft_lstclear(t_list *lst)
+{
+	t_list	*temp_lst;
+
+	if (!lst)
+		return ;
+	lst->prev->next = NULL;
+	while (lst)
+	{
+		temp_lst = lst->next;
+		free(lst);
+		lst = temp_lst;
+	}
+	return ;
+}

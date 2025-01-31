@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:33:53 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/01/30 15:03:10 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/01/31 16:44:07 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,17 @@ int		ft_putchar(unsigned int c);
 int		ft_puterror(char *str);
 int		ft_putstr(char *str);
 size_t	ft_strlen(const char *s);
-t_list	*ft_lstnew(int nb);
+t_list	*ft_new_node(int nb);
 void	ft_lstclear(t_list *lst);
 t_list	*ft_create_stack(int argc, char **argv);
-
-
-
+void	ft_lstadd_end(t_list **tail, t_list *new_node);
+void	ft_lstadd_bgn(t_list **tail, t_list *new_node);
+t_list	*ft_remove_end(t_list **tail);
+t_list	*ft_remove_bgn(t_list **tail);
+void	ft_swap_nodes(t_list **tail);
+void	ft_rotate_up(t_list **tail);
+void	ft_rotate_down(t_list **tail);
+void	ft_push(t_list **tail_from, t_list **tail_to);
 
 
 #endif

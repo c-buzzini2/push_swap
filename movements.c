@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_swap_nodes.c                                    :+:      :+:    :+:   */
+/*   movements.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 11:34:44 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/01/31 16:52:33 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/04 14:21:54 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	ft_swap_nodes(t_list **tail)
 	if (tail == NULL || *tail == NULL || (*tail)->next == *tail)
 	{
 		ft_puterror("Error: cannot swap nodes");
-		exit(1);
+		//ft_clear_and_exit
+		exit (1);
   	}
 	head = (*tail)->next;
 	second = head->next;

@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:33:53 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/04 11:34:15 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/06 15:56:50 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_list
 {
 	struct s_list	*prev;
 	int				nb;
+	int				index;
 	struct s_list	*next;
 }	t_list;
 
@@ -44,8 +45,18 @@ void	ft_push(t_list **tail_from, t_list **tail_to);
 int		ft_move(char *str, t_list **tail_a, t_list **tail_b);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
 void	ft_sort_three(t_list **tail);
+void	ft_sort_two(t_list **tail);
 int		ft_lstsize(t_list *lst);
-void	ft_clear_and_exit(t_list *lst_a, t_list *lst_b);
+void	ft_error_free_exit(t_list *lstclear_a, t_list *lst_b);
+void	ft_check_repetition(t_list **tail, int nb);
+void	ft_prepare_stack(t_list **tail_a, t_list **tail_b);
+void	ft_set_indices(t_list *tail_a, t_list *tail_b);
+t_list	*ft_choose_cheapest(t_list *tail_a, t_list *tail_b, int lstsize);
+int		ft_find_destination(t_list *tail_a, int nb);
+int		ft_smallest_nb(t_list *tail_a);
+int		ft_smallest_higher(t_list *tail_a, t_list *curr, int nb);
+int		ft_calculate_cost(int index_a, int index_b, t_list *tail_a, t_list *tail_b);
+void 	ft_position_cheapest(t_list **tail_a, t_list **tail_b);
 
 
 #endif

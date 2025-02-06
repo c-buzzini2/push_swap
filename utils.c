@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/10 11:36:06 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/04 15:04:11 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/05 11:12:50 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	ft_lstclear(t_list *lst)
 	return ;
 }
 
-void	ft_error_clear_exit(t_list *lst_a, t_list *lst_b)
+void	ft_error_free_exit(t_list *lst_a, t_list *lst_b)
 {
 	ft_puterror("Error");
 	if (!lst_a && !lst_b)
@@ -101,14 +101,12 @@ int	ft_lstsize(t_list *tail)
 
 	if (tail == NULL)
 		return (0);
-	i = 0;
+	i = 1;
 	curr_lst = tail->next;
 	while (curr_lst != tail)
 	{
 		curr_lst = curr_lst->next;
 		i++;
 	}
-	if (curr_lst == tail)
-		i++;
 	return (i);
 }

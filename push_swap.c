@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:16:19 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/06 15:24:34 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/09 13:23:08 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int	main(int argc, char **argv)
 	t_list	*tail_a;
 	t_list	*tail_b;
 	t_list	*temp_lst;
-	int		lstsize;
+	int		lstsize_b;
 	
 	if (argc <= 1 || (argc == 2 && ft_atoi(argv[1])))
 	 	return 0;
@@ -110,12 +110,13 @@ int	main(int argc, char **argv)
 	}
 	tail_b = NULL;
 	ft_prepare_stack(&tail_a, &tail_b);
-	lstsize = ft_lstsize(tail_b);
-	//while (lstsize > 0)
-	//{
-		ft_position_cheapest(&tail_a, &tail_b);
-		
-	//}
+	lstsize_b = ft_lstsize(tail_b) - 1;
+	while (lstsize_b > 0)
+	{
+		ft_push_cheapest(&tail_a, &tail_b);
+		ft_set_indices(tail_a, tail_b);
+		lstsize_b--;
+	}
 	//put smallest number at the beginning
 	
  	//TESTS!!! delete print loop later
@@ -128,14 +129,14 @@ int	main(int argc, char **argv)
 		temp_lst = temp_lst->next;
 	} 
 	printf("%d\n\n", tail_a->nb);
-	temp_lst = tail_b->next;
-	printf ("STACK B\n");
+//	temp_lst = tail_b->next;
+/* 	printf ("STACK B\n");
 	while (temp_lst != tail_b) 
 	{
 		printf("%d\n", temp_lst->nb);
 		temp_lst = temp_lst->next;
 	} 
-	printf("%d\n", tail_b->nb);
+	printf("%d\n", tail_b->nb); */
 
 	ft_lstclear(tail_a);
 	ft_lstclear(tail_b);

@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 11:34:44 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/01/31 15:12:06 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/09 14:55:33 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,9 @@ t_list	*ft_remove_end(t_list **tail)
   	}
 	if ((*tail)->next == *tail)
     {
+  		temp = *tail;
         *tail = NULL;
-        return (*tail);
+        return (temp);
     }
 	(*tail)->prev->next = (*tail)->next;
 	(*tail)->next->prev = (*tail)->prev;
@@ -95,8 +96,9 @@ t_list	*ft_remove_bgn(t_list **tail)
   	}
 	if ((*tail)->next == *tail)
     {
+		temp = *tail;
         *tail = NULL;
-        return (*tail);
+        return (temp);
     }
 	temp = (*tail)->next;
 	(*tail)->next = (*tail)->next->next;

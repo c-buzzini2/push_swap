@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:17:19 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/09 15:03:38 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:31:50 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,95 @@ void ft_push_cheapest(t_list **tail_a, t_list **tail_b)
 	t_list	*cheapest;
 
 	cheapest = ft_choose_cheapest(*tail_a, *tail_b);
-	printf("Cheapest: %d\n", cheapest->nb);
-	ft_put_on_top(tail_b, cheapest);
-	ft_put_on_top(tail_a, cheapest->dest);
-	ft_push(tail_b, tail_a);
-	ft_smallest_first(tail_a);
+	ft_put_on_top(tail_a, tail_b, cheapest->dest, cheapest);
+	ft_move("pb", tail_a, tail_b);
 }
 
-void ft_put_on_top(t_list **tail, t_list *node)
+void	ft_both_up(t_list **tail_a, t_list **tail_b, t_list *node_a, t_list *node_b)
 {
-	int		lstsize;
-	int		rotations;
+	int		rotations_a;
+	int		rotations_b;
 	
-	lstsize = ft_lstsize(*tail);
+	rotations_a = node_a->index;
+	rotations_b = node_b->index;
+	while (rotations_a > 0 && rotations_b > 0)
+	{
+		ft_move("rr", tail_a, tail_b);
+		rotations_a--;
+		rotations_b--;
+	}
+	while (rotations_a > 0)
+	{
+		ft_move("ra", tail_a, tail_b);
+		rotations_a--;
+	}
+	while (rotations_b > 0)
+	{
+		ft_move("rb", tail_a, tail_b);
+		rotations_b--;
+	}
+}
+
+void	ft_both_down(t_list **tail_a, t_list **tail_b, t_list *node_a, t_list *node_b)
+{
+	int		lstsize_a;
+	int		lstsize_b;
+	int		rotations_a;
+	int		rotations_b;
+	
+	lstsize_a = ft_lstsize(*tail_a);
+	lstsize_b = ft_lstsize(*tail_b);
+	rotations_a = (lstsize_a) - node_a->index;
+	rotations_b = (lstsize_b) - node_b->index;
+	while (rotations_a > 0 && rotations_b > 0)
+	{
+		ft_move("rrr", tail_a, tail_b);
+		rotations_a--;
+		rotations_b--;
+	}
+	while (rotations_a > 0)
+	{
+		ft_move("rra", tail_a, tail_b);
+		rotations_a--;
+	}
+	while (rotations_b > 0)
+	{
+		ft_move("rrb", tail_a, tail_b);
+		rotations_b--;
+	}
+}
+
+void ft_put_on_top(t_list **tail_a, t_list **tail_b, t_list *node_a, t_list *node_b)
+{
+	int		lstsize_a;
+	int		lstsize_b;
+	
+	lstsize_a = ft_lstsize(*tail_a);
+	lstsize_b = ft_lstsize(*tail_b);
+	if (node_a->index < lstsize_a / 2 + 1 && node_b->index < lstsize_b / 2 + 1)
+		ft_both_up(tail_a, tail_b, node_a, node_b);
+	else if (node_a->index >= lstsize_a / 2 + 1 && node_b->index >= lstsize_b / 2 + 1)
+		ft_both_down(tail_a, tail_b, node_a, node_b);
+	else
+	{
+		ft_rotate_one(tail_a, node_a, lstsize_a, 'a');
+		ft_rotate_one(tail_b, node_b, lstsize_b, 'b');
+	}
+}
+
+void	ft_rotate_one(t_list **tail, t_list *node, int lstsize, char c)
+{
+	int		rotations;
+
 	if (node->index < lstsize / 2 + 1)
 	{
 		rotations = node->index;
-		printf("ROTATIONS: %d\n", rotations);
 		while (rotations > 0)
 		{
-			ft_rotate_up(tail);
+			if (c == 'a')
+				ft_move("ra", tail, NULL);
+			if (c == 'b')
+				ft_move("rb", NULL, tail);
 			rotations--;
 		}
 	}
@@ -44,27 +113,11 @@ void ft_put_on_top(t_list **tail, t_list *node)
 		rotations = (lstsize) - node->index;
 		while (rotations > 0)
 		{
-			ft_rotate_down(tail);
+			if (c == 'a')
+				ft_move("rra", tail, NULL);
+			if (c == 'b')
+				ft_move("rrb", NULL, tail);
 			rotations--;
 		}
-	}
-}
-
-void ft_smallest_first(t_list **tail)
-{
-	t_list	*smallest;
-	int		lstsize;
-	
-	lstsize = ft_lstsize(*tail);
-	smallest = ft_smallest_nb(*tail);
-	if (smallest->index < lstsize / 2 + 1)
-	{
-		while ((*tail)->next != smallest)		
-			ft_rotate_up(tail);
-	}
-	else if (smallest->index >= lstsize / 2 + 1)
-	{
-		while ((*tail)->next != smallest)		
-			ft_rotate_down(tail);
 	}
 }

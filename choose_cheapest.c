@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 15:09:22 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/09 14:26:58 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/10 12:51:10 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ t_list	*ft_choose_cheapest(t_list *tail_a, t_list *tail_b)
 	{
 		curr->dest = ft_find_destination(tail_a, curr->nb);
 		cost = ft_calculate_cost(curr->dest->index, curr->index, tail_a, tail_b);
-		printf("Nb: %d, dest-index: %d, cost: %d\n", curr->nb, curr->dest->index, cost);
 		if (cost < lowest_cost)
 		{
 			lowest_cost = cost;

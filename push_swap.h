@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:33:53 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/09 15:03:40 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:05:31 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,11 @@ t_list	*ft_smallest_nb(t_list *tail_a);
 t_list	*ft_smallest_higher(t_list *tail_a, t_list *curr, int nb);
 int		ft_calculate_cost(int index_a, int index_b, t_list *tail_a, t_list *tail_b);
 void 	ft_push_cheapest(t_list **tail_a, t_list **tail_b);
-void ft_put_on_top(t_list **tail, t_list *node);
-void ft_smallest_first(t_list **tail);
+void 	ft_put_on_top(t_list **tail_a, t_list **tail_b, t_list *node_a, t_list *node_b);
+void	ft_both_up(t_list **tail_a, t_list **tail_b, t_list *node_a, t_list *node_b);
+void	ft_both_down(t_list **tail_a, t_list **tail_b, t_list *node_a, t_list *node_b);
+void	ft_rotate_one(t_list **tail, t_list *node, int lstsize, char c);
+void	ft_smallest_first(t_list **tail);
 
 
 #endif

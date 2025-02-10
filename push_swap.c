@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:16:19 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/09 14:53:07 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/10 13:32:10 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,25 @@ t_list	*ft_create_stack(int argc, char **argv)
 	return (tail);
 }
 
+void ft_smallest_first(t_list **tail)
+{
+	t_list	*smallest;
+	int		lstsize;
+	
+	lstsize = ft_lstsize(*tail);
+	smallest = ft_smallest_nb(*tail);
+	if (smallest->index < lstsize / 2 + 1)
+	{
+		while ((*tail)->next != smallest)		
+			ft_move("ra", tail, NULL);
+	}
+	else if (smallest->index >= lstsize / 2 + 1)
+	{
+		while ((*tail)->next != smallest)		
+			ft_move("rra", tail, NULL);
+	}
+}
+
 int	main(int argc, char **argv)
 {
 	t_list	*tail_a;
@@ -110,24 +129,6 @@ int	main(int argc, char **argv)
 	}
 	tail_b = NULL;
 	ft_prepare_stack(&tail_a, &tail_b);
-	
-	temp_lst = tail_a->next;
-	printf ("STACK A\n");
-	while (temp_lst != tail_a) 
-	{
-		printf("%d\n", temp_lst->nb);
-		temp_lst = temp_lst->next;
-	} 
-	printf("%d\n\n", tail_a->nb);
- 	temp_lst = tail_b->next;
- 	printf ("STACK B\n");
-	while (temp_lst != tail_b) 
-	{
-		printf("%d\n", temp_lst->nb);
-		temp_lst = temp_lst->next;
-	} 
-	printf("%d\n", tail_b->nb); 
-	
 	lstsize_b = ft_lstsize(tail_b);
 	while (lstsize_b > 0)
 	{
@@ -135,8 +136,9 @@ int	main(int argc, char **argv)
 		ft_set_indices(tail_a, tail_b);
 		lstsize_b--;
 	}
-	//put smallest number at the beginning
-	
+	ft_smallest_first(&tail_a);
+
+
  	//TESTS!!! delete print loop later
 	
 	temp_lst = tail_a->next;
@@ -147,14 +149,7 @@ int	main(int argc, char **argv)
 		temp_lst = temp_lst->next;
 	} 
 	printf("%d\n\n", tail_a->nb);
-/*  	temp_lst = tail_b->next;
- 	printf ("STACK B\n");
-	while (temp_lst != tail_b) 
-	{
-		printf("%d\n", temp_lst->nb);
-		temp_lst = temp_lst->next;
-	} 
-	printf("%d\n", tail_b->nb);  */
+
 
 	ft_lstclear(tail_a);
 	ft_lstclear(tail_b);

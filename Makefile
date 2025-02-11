@@ -6,32 +6,27 @@
 #    By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 12:59:11 by cbuzzini          #+#    #+#              #
-#    Updated: 2025/01/16 14:20:35 by cbuzzini         ###   ########.fr        #
+#    Updated: 2025/02/11 13:14:07 by cbuzzini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-HDR_FILES = pipex.h
-SRC_FILES = pipex.c ft_putstr_fd.c ft_putchar_fd.c first_child.c last_child.c
-OBJ_FILES = $(SRC_FILES:.c=.o)
+HDR_FILES = push_swap.h
+SRC_FILES = ft_split.c print.c utils_lists.c choose_cheapest.c push_swap.c \
+			utils_split.c create_stack.c movements_ps.c movements_rot.c utils_strings.c \
+			prepare_stacks.c sorting.c check_params.c
 
-HDR_BONUS = pipex_bonus.h
-BONUS_FILES = pipex_bonus.c ft_putstr_fd.c ft_putchar_fd.c
-OBJ_BONUS = $(BONUS_FILES:.c=.o)
+OBJ_FILES = $(SRC_FILES:.c=.o)
 
 CC = cc 
 FLAGS = -g -Wall -Wextra -Werror
-NAME = pipex
+NAME = push_swap
 
 all: $(NAME)
 
-%.o: %.c $(HDR_FILES) #does the dependency stay? do I need something parallel to this just for the bonus???
-	$(CC) $(FLAGS) -c $< -o $@ 
+%.o: %.c $(HDR_FILES)
 
 $(NAME): $(OBJ_FILES)
 	$(CC) $(FLAGS) $(OBJ_FILES) -o $(NAME)
-
-#bonus: $(OBJ_BONUS) $(HDR_BONUS) # BONUS IS RELINKING
-#	$(CC) $(FLAGS) $(OBJ_BONUS) -I $(HDR_BONUS) -o $(NAME)
 
 clean:
 	rm -f $(OBJ_FILES) $(OBJ_BONUS)
@@ -41,4 +36,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: clean fclean re all bonus run
+.PHONY: clean fclean re all

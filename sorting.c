@@ -6,93 +6,69 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:17:19 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/10 13:31:50 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/11 12:42:25 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
-void ft_push_cheapest(t_list **tail_a, t_list **tail_b)
-{
-	t_list	*cheapest;
 
-	cheapest = ft_choose_cheapest(*tail_a, *tail_b);
-	ft_put_on_top(tail_a, tail_b, cheapest->dest, cheapest);
-	ft_move("pb", tail_a, tail_b);
-}
-
-void	ft_both_up(t_list **tail_a, t_list **tail_b, t_list *node_a, t_list *node_b)
+static void	ft_both_up(t_list **tail_a, t_list **tail_b,
+				t_list *node_a, t_list *node_b)
 {
 	int		rotations_a;
 	int		rotations_b;
-	
+
 	rotations_a = node_a->index;
 	rotations_b = node_b->index;
 	while (rotations_a > 0 && rotations_b > 0)
 	{
-		ft_move("rr", tail_a, tail_b);
+		ft_move_rotate("rr", tail_a, tail_b);
 		rotations_a--;
 		rotations_b--;
 	}
 	while (rotations_a > 0)
 	{
-		ft_move("ra", tail_a, tail_b);
+		ft_move_rotate("ra", tail_a, tail_b);
 		rotations_a--;
 	}
 	while (rotations_b > 0)
 	{
-		ft_move("rb", tail_a, tail_b);
+		ft_move_rotate("rb", tail_a, tail_b);
 		rotations_b--;
 	}
 }
 
-void	ft_both_down(t_list **tail_a, t_list **tail_b, t_list *node_a, t_list *node_b)
+static void	ft_both_down(t_list **tail_a, t_list **tail_b,
+				t_list *node_a, t_list *node_b)
 {
 	int		lstsize_a;
 	int		lstsize_b;
 	int		rotations_a;
 	int		rotations_b;
-	
+
 	lstsize_a = ft_lstsize(*tail_a);
 	lstsize_b = ft_lstsize(*tail_b);
 	rotations_a = (lstsize_a) - node_a->index;
 	rotations_b = (lstsize_b) - node_b->index;
 	while (rotations_a > 0 && rotations_b > 0)
 	{
-		ft_move("rrr", tail_a, tail_b);
+		ft_move_rotate("rrr", tail_a, tail_b);
 		rotations_a--;
 		rotations_b--;
 	}
 	while (rotations_a > 0)
 	{
-		ft_move("rra", tail_a, tail_b);
+		ft_move_rotate("rra", tail_a, tail_b);
 		rotations_a--;
 	}
 	while (rotations_b > 0)
 	{
-		ft_move("rrb", tail_a, tail_b);
+		ft_move_rotate("rrb", tail_a, tail_b);
 		rotations_b--;
 	}
 }
 
-void ft_put_on_top(t_list **tail_a, t_list **tail_b, t_list *node_a, t_list *node_b)
-{
-	int		lstsize_a;
-	int		lstsize_b;
-	
-	lstsize_a = ft_lstsize(*tail_a);
-	lstsize_b = ft_lstsize(*tail_b);
-	if (node_a->index < lstsize_a / 2 + 1 && node_b->index < lstsize_b / 2 + 1)
-		ft_both_up(tail_a, tail_b, node_a, node_b);
-	else if (node_a->index >= lstsize_a / 2 + 1 && node_b->index >= lstsize_b / 2 + 1)
-		ft_both_down(tail_a, tail_b, node_a, node_b);
-	else
-	{
-		ft_rotate_one(tail_a, node_a, lstsize_a, 'a');
-		ft_rotate_one(tail_b, node_b, lstsize_b, 'b');
-	}
-}
-
-void	ft_rotate_one(t_list **tail, t_list *node, int lstsize, char c)
+static void	ft_rotate_one(t_list **tail, t_list *node, int lstsize, char c)
 {
 	int		rotations;
 
@@ -102,9 +78,9 @@ void	ft_rotate_one(t_list **tail, t_list *node, int lstsize, char c)
 		while (rotations > 0)
 		{
 			if (c == 'a')
-				ft_move("ra", tail, NULL);
+				ft_move_rotate("ra", tail, NULL);
 			if (c == 'b')
-				ft_move("rb", NULL, tail);
+				ft_move_rotate("rb", NULL, tail);
 			rotations--;
 		}
 	}
@@ -114,10 +90,39 @@ void	ft_rotate_one(t_list **tail, t_list *node, int lstsize, char c)
 		while (rotations > 0)
 		{
 			if (c == 'a')
-				ft_move("rra", tail, NULL);
+				ft_move_rotate("rra", tail, NULL);
 			if (c == 'b')
-				ft_move("rrb", NULL, tail);
+				ft_move_rotate("rrb", NULL, tail);
 			rotations--;
 		}
 	}
+}
+
+void	ft_put_on_top(t_list **tail_a, t_list **tail_b,
+			t_list *node_a, t_list *node_b)
+{
+	int		lstsize_a;
+	int		lstsize_b;
+
+	lstsize_a = ft_lstsize(*tail_a);
+	lstsize_b = ft_lstsize(*tail_b);
+	if (node_a->index < lstsize_a / 2 + 1 && node_b->index < lstsize_b / 2 + 1)
+		ft_both_up(tail_a, tail_b, node_a, node_b);
+	else if (node_a->index >= lstsize_a / 2 + 1
+		&& node_b->index >= lstsize_b / 2 + 1)
+		ft_both_down(tail_a, tail_b, node_a, node_b);
+	else
+	{
+		ft_rotate_one(tail_a, node_a, lstsize_a, 'a');
+		ft_rotate_one(tail_b, node_b, lstsize_b, 'b');
+	}
+}
+
+void	ft_push_cheapest(t_list **tail_a, t_list **tail_b)
+{
+	t_list	*cheapest;
+
+	cheapest = ft_choose_cheapest(*tail_a, *tail_b);
+	ft_put_on_top(tail_a, tail_b, cheapest->dest, cheapest);
+	ft_move_ps("pb", tail_a, tail_b);
 }

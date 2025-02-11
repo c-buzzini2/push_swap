@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/26 14:55:02 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/10 15:36:50 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:55:16 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,14 +43,13 @@ int	ft_puterror(char *str)
 
 	if (!str)
 	{
-		returned = write(2, "Error: puterror has no string to print\n", 39);
+		returned = write(2, "Error: puterror has no string to print\n", 39);//DELETE OR LEAVE JUST ERROR
 		if (returned == -1)
 			return (-1);
 	}
 	else
 	{
 		returned = write(2, str, ft_strlen(str));
-		returned += write(2, "\n", 1);
 		if (returned == -1)
 			return (-1);
 	}

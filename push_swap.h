@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/24 11:33:53 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/11 13:11:02 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:00:50 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,14 @@ int		ft_needs_split(char *str);
 char	**ft_split(char const *s, char c);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s);
-int		ft_atoi(const char *nptr);
+int		ft_atoi(const char *nptr, t_list *tail_a);
 int		ft_putchar(unsigned int c);
 int		ft_puterror(char *str);
 int		ft_putstr(char *str);
 size_t	ft_strlen(const char *s);
 t_list	*ft_prepare_args(int argc, char **argv);
 void	ft_lstclear(t_list *lst);
-void	ft_lstadd_bgn(t_list **tail, t_list *new_node);
+int	ft_lstadd_bgn(t_list **tail, t_list *new_node);
 t_list	*ft_remove_bgn(t_list **tail);
 int		ft_move_ps(char *str, t_list **tail_a, t_list **tail_b);
 int		ft_move_rotate(char *str, t_list **tail_a, t_list **tail_b);

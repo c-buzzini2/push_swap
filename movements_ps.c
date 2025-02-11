@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 11:34:44 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/11 12:54:17 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/11 14:01:20 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@ t_list	*ft_remove_bgn(t_list **tail)
 
 	if (tail == NULL || *tail == NULL)
 	{
-		ft_puterror("Error: cannot remove node at the beginning\n");
-		exit(1);
+		ft_puterror("Error: cannot remove node at the beginning\n");//DELETE
+		return(NULL);
 	}
 	if ((*tail)->next == *tail)
 	{
@@ -35,22 +35,23 @@ t_list	*ft_remove_bgn(t_list **tail)
 	return (temp);
 }
 
-void	ft_lstadd_bgn(t_list **tail, t_list *new_node)
+int	ft_lstadd_bgn(t_list **tail, t_list *new_node)
 {
 	if (tail == NULL || new_node == NULL)
 	{
-		ft_puterror("Error: cannot add node at the beginning\n");
+		ft_puterror("Error: cannot add node at the beginning\n");//DELETE
+		return (1);
 	}
 	if (*tail == NULL)
 	{
 		*tail = new_node;
-		return ;
+		return (0);
 	}
 	new_node->next = (*tail)->next;
 	new_node->prev = *tail;
 	(*tail)->next->prev = new_node;
 	(*tail)->next = new_node;
-	return ;
+	return (0);
 }
 
 static int	ft_push(t_list **tail_from, t_list **tail_to)
@@ -59,11 +60,14 @@ static int	ft_push(t_list **tail_from, t_list **tail_to)
 
 	if (tail_to == NULL || tail_from == NULL)
 	{
-		ft_puterror("Error: stack missing");
+		ft_puterror("Error: stack missing");//DELETE
 		return (1);
 	}
 	moving = ft_remove_bgn(tail_from);
-	ft_lstadd_bgn(tail_to, moving);
+	if (moving == NULL)
+		ft_error_free_exit(*tail_from, *tail_to);
+	if (ft_lstadd_bgn(tail_to, moving) == 1)
+		ft_error_free_exit(*tail_from, *tail_to);
 	return (0);
 }
 
@@ -74,7 +78,7 @@ static int	ft_swap_nodes(t_list **tail)
 
 	if (tail == NULL || *tail == NULL || (*tail)->next == *tail)
 	{
-		ft_puterror("Error: cannot swap nodes");
+		ft_puterror("Error: cannot swap nodes");//DELETE
 		return (1);
 	}
 	head = (*tail)->next;

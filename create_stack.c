@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_add_remove.c                                :+:      :+:    :+:   */
+/*   create_stack.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 11:34:44 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/11 13:10:27 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/11 13:33:35 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	ft_lstadd_end(t_list **tail, t_list *new_node)
 {
 	if (tail == NULL || new_node == NULL)
 	{
-		ft_puterror("Error: cannot add node at the end\n");
+		ft_puterror("Error: cannot add node at the end\n");//DELETE
 		return (1);
 	}
 	if (*tail == NULL)
@@ -54,14 +54,14 @@ static void	ft_check_repetition(t_list **tail, int nb)
 	{
 		if (curr->nb == nb)
 		{
-			printf("Repeated number");
+			printf("Repeated number");//DELETE
 			ft_error_free_exit(*tail, NULL);
 		}
 		curr = curr->next;
 	}
 	if ((*tail)->nb == nb)
 	{
-		printf("Repeated number");
+		printf("Repeated number");//DELETE
 		ft_error_free_exit(*tail, NULL);
 	}
 }
@@ -77,16 +77,12 @@ static t_list	*ft_create_stack(int argc, char **argv)
 	tail = NULL;
 	while (i <= argc - 1)
 	{
-		nb = ft_atoi(argv[i]);
+		nb = ft_atoi(argv[i], tail);
 		if (tail != NULL)
 			ft_check_repetition(&tail, nb);
 		new_node = ft_new_node(nb);
 		if (new_node == NULL)
-		{
-			ft_puterror("Error: allocation failed");
-			ft_lstclear(tail);
-			exit (1);
-		}
+			ft_error_free_exit(tail, NULL);
 		if (ft_lstadd_end(&tail, new_node) == 1)
 			return (NULL);
 		i++;
@@ -120,7 +116,7 @@ t_list	*ft_prepare_args(int argc, char **argv)
 		{
 			if (ft_digits_and_spaces(argv[i]) == 0)
 			{
-				ft_puterror("Error: parameters must be ints");
+				ft_puterror("Error: parameters must be ints");//KEEP ERROR ONLY NEWLINE
 				exit (1);
 			}
 			i++;

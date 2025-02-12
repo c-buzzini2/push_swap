@@ -6,14 +6,14 @@
 #    By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/24 12:59:11 by cbuzzini          #+#    #+#              #
-#    Updated: 2025/02/11 13:14:07 by cbuzzini         ###   ########.fr        #
+#    Updated: 2025/02/12 11:48:46 by cbuzzini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 HDR_FILES = push_swap.h
 SRC_FILES = ft_split.c print.c utils_lists.c choose_cheapest.c push_swap.c \
 			utils_split.c create_stack.c movements_ps.c movements_rot.c utils_strings.c \
-			prepare_stacks.c sorting.c check_params.c
+			prepare_stacks.c sorting.c check_params.c push_back.c
 
 OBJ_FILES = $(SRC_FILES:.c=.o)
 

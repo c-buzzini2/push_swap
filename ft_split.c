@@ -6,33 +6,21 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/10/09 15:06:50 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/10 14:44:07 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:06:37 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-static char	**ft_empty_null(char **arr, int n, int i)
+static char	**ft_free_split(char **arr, int i)
 {
-	//DO I REALLY NEED THIS?
-	if (n == 0)
+	while (i >= 0)
 	{
-		arr = (char **)malloc(sizeof(char *));
-		if (arr == NULL)
-			return (NULL);
-		arr[0] = NULL;
+		free(arr[i]);
+		i--;
 	}
-	if (n == 1)
-	{
-		while (i >= 0)
-		{
-			free(arr[i]);
-			i--;
-		}
-		free(arr);
-		return (NULL);
-	}
-	return (arr);
+	free(arr);
+	return (NULL);
 }
 
 static int	ft_count_substr(const char *s, char c)
@@ -86,7 +74,7 @@ static char	**ft_split2(char const *s, char c, char **arr, int counter_subs)
 		len_sub = ft_substr_len (s + j, c);
 		arr[i] = ft_substr (s, j, len_sub);
 		if (arr[i] == NULL)
-			return (ft_empty_null(arr, 1, i));
+			return (ft_free_split(arr, i));
 		i++;
 		j = j + len_sub;
 		while (s[j] && s[j] == c)
@@ -103,9 +91,9 @@ char	**ft_split(char const *s, char c)
 
 	arr = NULL;
 	if (s == NULL)
-		return (ft_empty_null(arr, 0, 0));
+		return (NULL);
 	if (s[0] == '\0')
-		return (ft_empty_null(arr, 0, 0));
+		return (NULL);
 	if (c == 0)
 	{
 		arr = (char **)malloc(2 * sizeof(char *));
@@ -113,12 +101,12 @@ char	**ft_split(char const *s, char c)
 			return (NULL);
 		arr[0] = ft_strdup(s);
 		if (arr[0] == NULL)
-			return (ft_empty_null(arr, 1, 0));
+			return (ft_free_split(arr, 0));
 		arr[1] = NULL;
 		return (arr);
 	}
 	counter_subs = ft_count_substr (s, c);
 	if (counter_subs == 0)
-		return (ft_empty_null(arr, 0, 0));
+		return (NULL);
 	return (ft_split2(s, c, arr, counter_subs));
 }

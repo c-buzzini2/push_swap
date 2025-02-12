@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:17:19 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/11 12:42:25 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:54:47 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,21 @@ static void	ft_both_down(t_list **tail_a, t_list **tail_b,
 	}
 }
 
+static void	ft_rev_rotate_one(t_list **tail, t_list *node, int lstsize, char c)
+{
+	int		rotations;
+
+	rotations = (lstsize) - node->index;
+	while (rotations > 0)
+	{
+		if (c == 'a')
+			ft_move_rotate("rra", tail, NULL);
+		if (c == 'b')
+			ft_move_rotate("rrb", NULL, tail);
+		rotations--;
+	}
+}
+
 static void	ft_rotate_one(t_list **tail, t_list *node, int lstsize, char c)
 {
 	int		rotations;
@@ -85,17 +100,7 @@ static void	ft_rotate_one(t_list **tail, t_list *node, int lstsize, char c)
 		}
 	}
 	else if (node->index >= lstsize / 2 + 1)
-	{
-		rotations = (lstsize) - node->index;
-		while (rotations > 0)
-		{
-			if (c == 'a')
-				ft_move_rotate("rra", tail, NULL);
-			if (c == 'b')
-				ft_move_rotate("rrb", NULL, tail);
-			rotations--;
-		}
-	}
+		ft_rev_rotate_one(tail, node, lstsize, c);
 }
 
 void	ft_put_on_top(t_list **tail_a, t_list **tail_b,
@@ -116,13 +121,4 @@ void	ft_put_on_top(t_list **tail_a, t_list **tail_b,
 		ft_rotate_one(tail_a, node_a, lstsize_a, 'a');
 		ft_rotate_one(tail_b, node_b, lstsize_b, 'b');
 	}
-}
-
-void	ft_push_cheapest(t_list **tail_a, t_list **tail_b)
-{
-	t_list	*cheapest;
-
-	cheapest = ft_choose_cheapest(*tail_a, *tail_b);
-	ft_put_on_top(tail_a, tail_b, cheapest->dest, cheapest);
-	ft_move_ps("pb", tail_a, tail_b);
 }

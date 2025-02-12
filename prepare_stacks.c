@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   prepare_stack.c                                    :+:      :+:    :+:   */
+/*   prepare_stacks.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/05 11:17:19 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/11 12:40:40 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:07:38 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	ft_prepare_stack(t_list **tail_a, t_list **tail_b)
 	lstsize = ft_lstsize(*tail_a);
 	while (lstsize > 3)
 	{
-		ft_move_ps("pa", tail_a, tail_b);
+		ft_move_ps("pb", tail_a, tail_b);
 		lstsize--;
 	}
 	ft_sort_three(tail_a);
@@ -78,10 +78,10 @@ void	ft_set_indices(t_list *tail_a, t_list *tail_b)
 
 void	ft_small_stack(t_list **tail)
 {
-		if (ft_lstsize(*tail) == 2)
-			ft_sort_two(tail);
-		else if (ft_lstsize(*tail) == 3)
-			ft_sort_three(tail);
-		ft_lstclear(*tail);
-		exit (0);
+	if (ft_lstsize(*tail) == 2)
+		ft_sort_two(tail);
+	else if (ft_lstsize(*tail) == 3)
+		ft_sort_three(tail);
+	ft_lstclear(*tail);
+	exit (0);
 }

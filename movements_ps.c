@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 11:34:44 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/11 14:01:20 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:16:11 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ t_list	*ft_remove_bgn(t_list **tail)
 	t_list	*temp;
 
 	if (tail == NULL || *tail == NULL)
-	{
-		ft_puterror("Error: cannot remove node at the beginning\n");//DELETE
-		return(NULL);
-	}
+		return (NULL);
 	if ((*tail)->next == *tail)
 	{
 		temp = *tail;
@@ -38,10 +35,7 @@ t_list	*ft_remove_bgn(t_list **tail)
 int	ft_lstadd_bgn(t_list **tail, t_list *new_node)
 {
 	if (tail == NULL || new_node == NULL)
-	{
-		ft_puterror("Error: cannot add node at the beginning\n");//DELETE
 		return (1);
-	}
 	if (*tail == NULL)
 	{
 		*tail = new_node;
@@ -59,10 +53,7 @@ static int	ft_push(t_list **tail_from, t_list **tail_to)
 	t_list	*moving;
 
 	if (tail_to == NULL || tail_from == NULL)
-	{
-		ft_puterror("Error: stack missing");//DELETE
 		return (1);
-	}
 	moving = ft_remove_bgn(tail_from);
 	if (moving == NULL)
 		ft_error_free_exit(*tail_from, *tail_to);
@@ -77,10 +68,7 @@ static int	ft_swap_nodes(t_list **tail)
 	t_list	*head;
 
 	if (tail == NULL || *tail == NULL || (*tail)->next == *tail)
-	{
-		ft_puterror("Error: cannot swap nodes");//DELETE
 		return (1);
-	}
 	head = (*tail)->next;
 	second = head->next;
 	if (second == *tail)
@@ -111,12 +99,12 @@ int	ft_move_ps(char *str, t_list **tail_a, t_list **tail_b)
 	}
 	else if (ft_strncmp(str, "pa", 3) == 0)
 	{
-		if (ft_push(tail_a, tail_b) == 1)
+		if (ft_push(tail_b, tail_a) == 1)
 			ft_error_free_exit(*tail_a, *tail_b);
 	}
 	else if (ft_strncmp(str, "pb", 3) == 0)
 	{
-		if (ft_push(tail_b, tail_a) == 1)
+		if (ft_push(tail_a, tail_b) == 1)
 			ft_error_free_exit(*tail_a, *tail_b);
 	}
 	ft_putstr(str);

@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/30 14:16:19 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/11 14:47:05 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:35:52 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,22 +56,6 @@ int	main(int argc, char **argv)
 		lstsize_b--;
 	}
 	ft_smallest_first(&tail_a);
-
-	
- 	//TESTS!!! delete print loop later
-	
-	temp_lst = tail_a->next;
-	printf ("STACK A\n");
-	while (temp_lst != tail_a) 
-	{
-		printf("%d\n", temp_lst->nb);
-		temp_lst = temp_lst->next;
-	} 
-	printf("%d\n\n", tail_a->nb);
-
-
 	ft_lstclear(tail_a);
 	ft_lstclear(tail_b);
-
-	return 0;
 }

@@ -6,7 +6,7 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/10 11:34:44 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/11 13:42:18 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:16:26 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,7 @@
 static int	ft_rotate_up(t_list **tail)
 {
 	if (tail == NULL || *tail == NULL || (*tail)->next == *tail)
-	{
-		ft_puterror("Error: cannot rotate nodes");//DELETE
 		return (1);
-	}
 	*tail = (*tail)->next;
 	return (0);
 }
@@ -26,10 +23,7 @@ static int	ft_rotate_up(t_list **tail)
 static int	ft_rotate_down(t_list **tail)
 {
 	if (tail == NULL || *tail == NULL || (*tail)->next == *tail)
-	{
-		ft_puterror("Error: cannot rotate nodes");//DELETE
 		return (1);
-	}
 	*tail = (*tail)->prev;
 	return (0);
 }

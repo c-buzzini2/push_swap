@@ -6,42 +6,13 @@
 /*   By: cbuzzini <cbuzzini@student.42lisboa.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/30 14:26:55 by cbuzzini          #+#    #+#             */
-/*   Updated: 2025/02/11 14:47:52 by cbuzzini         ###   ########.fr       */
+/*   Updated: 2025/02/12 11:43:31 by cbuzzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	ft_atoi(const char *nptr, t_list *tail_a)
-{
-	int		i;
-	int		neg;
-	long	nb;
-
-	i = 0;
-	nb = 0;
-	neg = 1;
-	if (nptr[i] == '+' || nptr[i] == '-')
-	{
-		if (nptr[i] == '-')
-			neg = -1;
-		i++;
-	}
-	while (nptr[i] >= '0' && nptr[i] <= '9')
-	{
-		nb = nb * 10 + (nptr[i] - '0');
-		i++;
-	}
-	if (nptr[i] && (nptr[i] < '0' || nptr[i] > '9'
-		|| nb * neg > INT_MAX || nb * neg < INT_MIN))
-	{
-		ft_puterror("Error: input must be an int within INT_MAX and INT_MIN");//DELETE
-		ft_error_free_exit(tail_a, NULL);
-	}
-	return ((int)nb * neg);
-}
-
-int	ft_digits_and_spaces(char *str)
+static int	ft_digits_and_spaces(char *str)
 {
 	int		i;
 
@@ -57,7 +28,7 @@ int	ft_digits_and_spaces(char *str)
 		return (0);
 }
 
-int	ft_needs_split(char *str)
+static int	ft_needs_split(char *str)
 {
 	int		i;
 
@@ -71,13 +42,57 @@ int	ft_needs_split(char *str)
 	return (0);
 }
 
+static t_list	*ft_prepare_args2(int argc, char **argv)
+{
+	int		i;
+	t_list	*tail_a;
+
+	tail_a = NULL;
+	i = 1;
+	while (argv[i])
+	{
+		if (ft_digits_and_spaces(argv[i]) == 0)
+		{
+			ft_puterror("Error\n");
+			exit (1);
+		}
+		i++;
+	}
+	tail_a = ft_create_stack(argc - 1, argv + 1);
+	return (tail_a);
+}
+
+t_list	*ft_prepare_args(int argc, char **argv)
+{
+	int		i;
+	t_list	*tail_a;
+	char	**args;
+
+	tail_a = NULL;
+	i = 0;
+	if (argc == 2 && ft_needs_split(argv[1]) == 1)
+	{
+		args = ft_split(argv[1], ' ');
+		while (args[i] != NULL)
+			i++;
+		tail_a = ft_create_stack(i, args);
+		i = 0;
+		while (args[i] != NULL)
+			free(args[i++]);
+		free(args);
+	}
+	else if (argc > 2)
+		tail_a = ft_prepare_args2(argc, argv);
+	return (tail_a);
+}
+
 void	ft_initial_check(int argc, char **argv)
 {
 	if (argc <= 1)
 		exit (0);
 	if (argc == 2 && ft_digits_and_spaces(argv[1]) == 0)
 	{
-		ft_puterror("Error: parameters must be ints");//KEEP JUST ERROR NEWLINE
+		ft_puterror("Error\n");
 		exit (1);
 	}
 	if (argc == 2 && ft_needs_split(argv[1]) == 0)
